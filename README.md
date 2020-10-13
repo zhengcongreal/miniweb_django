@@ -1,0 +1,2 @@
+# miniweb_django
+将miniweb项目用django重做一遍，以练习django的知识点
