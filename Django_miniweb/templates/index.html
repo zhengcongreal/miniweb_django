@@ -9,40 +9,37 @@
     <script src="/static/js/jquery-1.12.4.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script>
-
-
         $(document).ready(function () {
-            $.get("/index_data", function (data) {
-                console.log(data)
-                var $table = $(".table");
-                for (var i = 0; i < data.length; i++) {
-                    var iData = data[i]
-                    var oTr = '<tr>' +
-                        '<td>'+iData.id+'</td>' +
-                        '<td>'+iData.code+'</td>' +
-                        '<td>'+iData.short+'</td>' +
-                        '<td>'+iData.chg+'</td>' +
-                        '<td>'+iData.turnover+'</td>' +
-                        '<td>'+iData.price+'</td>' +
-                        '<td>'+iData.highs+'</td>' +
-                        '<td>'+iData.time+'</td>' +
-                        '<td><input type="button" value="添加" id="toAdd" name="toAdd" systemidvaule='+iData.id+'></td>'+
-                            '</tr>';
-                    $table.append(oTr)
-                }
-            }, "json").error(function (data) {
-                alert(data.responseText);
-            });
+            /* $.get("/index_data", function (data) {
+                 var $table = $(".table");
+                 for (var i = 0; i < data.length; i++) {
+                     var iData = data[i]
+                     var oTr = '<tr>' +
+                         '<td>'+iData.id+'</td>' +
+                         '<td>'+iData.code+'</td>' +
+                         '<td>'+iData.short+'</td>' +
+                         '<td>'+iData.chg+'</td>' +
+                         '<td>'+iData.turnover+'</td>' +
+                         '<td>'+iData.price+'</td>' +
+                         '<td>'+iData.highs+'</td>' +
+                         '<td>'+iData.time+'</td>' +
+                         '<td><input type="button" value="添加" id="toAdd" name="toAdd" systemidvaule='+iData.id+'></td>'+
+                             '</tr>';
+                     $table.append(oTr)
+                 }
+             }, "json").error(function (data) {
+                 alert("网络错误！");
 
+             });*/
 
-            $table=$(".table")
-            $table.delegate("tr td input[name='toAdd']",'click',function () {
-                code = $(this).attr("systemIdVaule");
-                    $.get("/add_focus/" + code, function (data) {
-                        alert(data);
-                    }).error(function (data) {
-                        alert("服务器错误！")
-                    });
+            $table = $(".table")
+            $table.delegate("tr td input[name='toAdd']", 'click', function () {
+                id = $(this).attr("systemIdVaule");
+                $.get("/add_focus/" + id, function (data) {
+                    alert(data);
+                }).error(function (data) {
+                    alert("服务器错误！")
+                });
             })
         });
     </script>
@@ -83,7 +80,19 @@
                 <th>前期高点日期</th>
                 <th>添加自选</th>
             </tr>
-
+            {% for i in info %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.code}}</td>
+                <td>{{i.short}}</td>
+                <td>{{i.chg}}</td>
+                <td>{{i.turnover}}</td>
+                <td>{{i.price}}</td>
+                <td>{{i.highs}}</td>
+                <td>{{i.time}}</td>
+                <td><input type="button" value="添加" id="toAdd" name="toAdd" systemidvaule="{{ i.id }}"></td>
+            </tr>
+            {% endfor %}
         </table>
     </div>
 </div>

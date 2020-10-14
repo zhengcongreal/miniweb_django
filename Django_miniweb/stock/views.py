@@ -11,7 +11,11 @@ from stock.models import Info, Focus
 
 class IndexView(View):
     def get(self, request):
-        return render(request, 'index.html')
+        info_data=Info.objects.all()
+        context={
+            'info':info_data
+        }
+        return render(request, 'index.html',context)
 
 
 class IndexDataView(View):
