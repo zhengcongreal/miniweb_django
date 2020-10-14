@@ -33,7 +33,7 @@ class IndexDataView(View):
         return http.JsonResponse(index_data_list, safe=False)
 
 
-class add_focus(View):
+class AddFocus(View):
     def get(self, request, id):
         try:
             Focus.objects.get(id=id)
@@ -50,7 +50,7 @@ class CenterView(View):
         return render(request, 'center.html')
 
 
-class RedictIndex(View):
+class RedirectIndex(View):
     def get(self, request):
         ret_url = reverse('stock:index')
         return redirect(ret_url)
